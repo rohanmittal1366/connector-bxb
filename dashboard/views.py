@@ -10,4 +10,9 @@ def index(request):
 
 def staff(request):
     return render(request, "dashboard/staff.html")
-    # return HttpResponse('This is staff page')
+
+def product(request):
+    return render(request, "dashboard/product.html")
+
+def order(request):
+    return render(request, "dashboard/order.html")
