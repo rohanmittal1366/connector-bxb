@@ -4,8 +4,10 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse('This is index page')
+    return render(request, "dashboard/index.html")
+    # return HttpResponse('This is index page')
 
 
 def staff(request):
-    return HttpResponse('This is staff page')
+    return render(request, "dashboard/staff.html")
+    # return HttpResponse('This is staff page')
