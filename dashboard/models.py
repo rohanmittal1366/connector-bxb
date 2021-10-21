@@ -1,5 +1,6 @@
-from django.db import models
 
+from django.db import models
+from django.contrib.auth.models import User
 # Create your models here.
 
 CATEGORY = (
@@ -16,5 +17,26 @@ class Product(models.Model):
  
     # It shows how the thinkg gonna show on admin panel 
     # This return itself value like Milk-100 on admin panel
+
+
+    class Meta:
+        verbose_name_plural = 'Products'
+
+
     def __str__(self):
         return f'{self.name}-{self.quantity}'
+
+
+class Order(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE , null=True)
+    staff = models.ForeignKey(User, on_delete=models.CASCADE , null=True)
+    order_quantity = models.PositiveIntegerField(null=True)
+    date  = models.DateTimeField(auto_now_add= True)
+
+
+    class Meta:
+        verbose_name_plural = 'Orders'
+
+
+    def __str__(self):
+        return f'{self.product} ordered by {self.staff.username}'
