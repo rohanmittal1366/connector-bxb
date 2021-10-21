@@ -3,3 +3,4 @@
 3. create apps in a main project : python manage.py startapp dashboard
 4. To register apps in main project : go to setting.py in main folder and type in intalled apps => dashboard 
 5. to include apps in main project you have to include that in urls.py in main folder
+6. to summarize your static data we use command : python manage.py collectstatic
