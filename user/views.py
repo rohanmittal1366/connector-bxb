@@ -16,5 +16,5 @@ def register(request):
     context = {
         'form' : form,
 
-    }
+    } 
     return render(request, 'user/register.html', {'form': form})

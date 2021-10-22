@@ -5,3 +5,4 @@
 5. to include apps in main project you have to include that in urls.py in main folder
 6. to summarize your static data we use command : python manage.py collectstatic
 7. Admin user and password : admin , admin
+8. pip install django-crispy-forms for adding crispy and add in installed apps
