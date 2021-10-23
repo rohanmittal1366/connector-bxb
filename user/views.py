@@ -17,4 +17,5 @@ def register(request):
         'form' : form,
 
     } 
+    
     return render(request, 'user/register.html', {'form': form})
