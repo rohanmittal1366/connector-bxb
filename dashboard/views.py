@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required # for give permision according to the user and admin
 from .models import Product
 from .forms import ProductForm
+from django.contrib.auth.models import User # for give permision according to the user and admin
+
 # Create your views here.
 
 @login_required(login_url='user-login')
@@ -12,7 +14,20 @@ def index(request):
 
 @login_required(login_url='user-login')
 def staff(request):
-    return render(request, "dashboard/staff.html")
+    workers = User.objects.all()
+    context = {
+        'workers': workers
+    }
+    return render(request, "dashboard/staff.html", context)
+
+@login_required(login_url='user-login')
+def staff_detail(request, pk):
+    worker = User.objects.get(id=pk)
+    context = {
+        'worker': worker
+    }
+    return render(request, 'dashboard/staff_detail.html', context)
+
 
 @login_required(login_url='user-login')
 def product(request):
