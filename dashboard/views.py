@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required # for give permision according to the user and admin
-from .models import Product
+from .models import Product, Order
 from .forms import ProductForm
 from django.contrib.auth.models import User # for give permision according to the user and admin
 
@@ -73,5 +73,9 @@ def product_update(request, pk):
 
 @login_required(login_url='user-login')
 def order(request):
-    return render(request, "dashboard/order.html")
+    orders = Order.objects.all()
+    context = {
+        'orders': orders
+    }
+    return render(request, "dashboard/order.html", context)
 
