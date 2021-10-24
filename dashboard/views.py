@@ -32,6 +32,7 @@ def product(request):
     }
     return render(request, "dashboard/product.html", context)
 
+@login_required(login_url='user-login')
 def product_delete(request , pk):
     item = Product.objects.get(id=pk)
     if request.method == 'POST':
