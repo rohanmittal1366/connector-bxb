@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required # for give permision a
 from .models import Product, Order
 from .forms import ProductForm, OrderForm
 from django.contrib.auth.models import User # for give permision according to the user and admin
-
+from django.contrib import messages
 # Create your views here.
 
 @login_required(login_url='user-login')
@@ -52,6 +52,8 @@ def product(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
+            product_name = form.cleaned_data.get('name')
+            messages.success(request, f'{product_name} has been added')
             return redirect('dashboard-product')
 
     else:
