@@ -16,7 +16,13 @@ def staff(request):
 
 @login_required(login_url='user-login')
 def product(request):
-    return render(request, "dashboard/product.html")
+    items = Product.objects.all() # using  object relational mapping 
+    # items = Product.objects.raw('SELECT * FROM dashboard_product')
+
+    context = {
+        'items' : items,
+    }
+    return render(request, "dashboard/product.html", context)
 
 @login_required(login_url='user-login')
 def order(request):
