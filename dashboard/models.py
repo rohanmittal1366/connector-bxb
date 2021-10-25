@@ -7,6 +7,9 @@ CATEGORY = (
     ('Stationary', 'Stationary'),
     ('Electronics', 'Electronics'),
     ('Food', 'Food'),
+    ('Clothes' , 'Clothes'),
+    ('Medicine' , 'Medicine'),
+    
 )
 
 
