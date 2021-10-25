@@ -10,6 +10,7 @@ from django.contrib import messages
 @login_required(login_url='user-login')
 def index(request):
     orders = Order.objects.all()
+    product  = Product.objects.all()
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -23,6 +24,7 @@ def index(request):
     context = {
         'orders' : orders,
         'form' : form,
+        'products' : product
     } 
     return render(request, "dashboard/index.html" , context)
     # return HttpResponse('This is index page')
