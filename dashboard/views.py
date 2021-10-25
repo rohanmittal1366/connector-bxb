@@ -11,6 +11,9 @@ from django.contrib import messages
 def index(request):
     orders = Order.objects.all()
     product  = Product.objects.all()
+    workers_count = User.objects.all().count()
+    orders_count = Order.objects.all().count()
+    product_count = Product.objects.all().count()
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -24,7 +27,10 @@ def index(request):
     context = {
         'orders' : orders,
         'form' : form,
-        'products' : product
+        'products' : product,
+        'workers_count' : workers_count,
+        'orders_count' : orders_count,
+        'product_count': product_count
     } 
     return render(request, "dashboard/index.html" , context)
     # return HttpResponse('This is index page')
@@ -32,16 +38,24 @@ def index(request):
 @login_required(login_url='user-login')
 def staff(request):
     workers = User.objects.all()
+    workers_count = workers.count()
+    orders_count = Order.objects.all().count()
+    product_count = Product.objects.all().count()
     context = {
-        'workers': workers
+        'workers': workers,
+        'workers_count' : workers_count,
+        'orders_count' : orders_count,
+        'product_count': product_count
     }
     return render(request, "dashboard/staff.html", context)
 
 @login_required(login_url='user-login')
 def staff_detail(request, pk):
     worker = User.objects.get(id=pk)
+    
     context = {
-        'worker': worker
+        'worker': worker,
+        
     }
     return render(request, 'dashboard/staff_detail.html', context)
 
@@ -50,6 +64,9 @@ def staff_detail(request, pk):
 def product(request):
     items = Product.objects.all() # using  object relational mapping 
     # items = Product.objects.raw('SELECT * FROM dashboard_product')
+    workers_count = User.objects.all().count()
+    orders_count = Order.objects.all().count()
+    product_count = Product.objects.all().count()
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
@@ -63,6 +80,9 @@ def product(request):
     context = {
         'items' : items,
         'form' : form,
+        'workers_count' : workers_count,
+        'orders_count' : orders_count,
+        'product_count': product_count
     }
     return render(request, "dashboard/product.html", context)
 
@@ -93,8 +113,14 @@ def product_update(request, pk):
 @login_required(login_url='user-login')
 def order(request):
     orders = Order.objects.all()
+    orders_count = orders.count()
+    workers_count = User.objects.all().count()
+    product_count = Product.objects.all().count()
     context = {
-        'orders': orders
+        'orders': orders,
+        'workers_count' : workers_count,
+        'orders_count' : orders_count,
+        'product_count': product_count
     }
     return render(request, "dashboard/order.html", context)
 
