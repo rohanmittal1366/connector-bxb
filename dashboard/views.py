@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required # for give permision according to the user and admin
@@ -5,6 +6,7 @@ from .models import Product, Order
 from .forms import ProductForm, OrderForm
 from django.contrib.auth.models import User # for give permision according to the user and admin
 from django.contrib import messages
+from .filters import StaffFilter, ProductFilter
 # Create your views here.
 
 @login_required(login_url='user-login')
@@ -41,11 +43,15 @@ def staff(request):
     workers_count = workers.count()
     orders_count = Order.objects.all().count()
     product_count = Product.objects.all().count()
+    myFilter = StaffFilter(request.GET, queryset = workers)
+    workers = myFilter.qs
+
     context = {
         'workers': workers,
         'workers_count' : workers_count,
         'orders_count' : orders_count,
-        'product_count': product_count
+        'product_count': product_count,
+        'myFilter' : myFilter,
     }
     return render(request, "dashboard/staff.html", context)
 
@@ -67,6 +73,9 @@ def product(request):
     workers_count = User.objects.all().count()
     orders_count = Order.objects.all().count()
     product_count = Product.objects.all().count()
+    myFilter_product = ProductFilter(request.GET, queryset = items)
+    items = myFilter_product.qs
+
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
@@ -82,7 +91,8 @@ def product(request):
         'form' : form,
         'workers_count' : workers_count,
         'orders_count' : orders_count,
-        'product_count': product_count
+        'product_count': product_count,
+        'myFilter_product' : myFilter_product,
     }
     return render(request, "dashboard/product.html", context)
 
