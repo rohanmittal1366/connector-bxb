@@ -15,8 +15,8 @@ class ProductFilter(django_filters.FilterSet):
         fields = '__all__'
 
 
-# class OrderFilter(django_filters.FilterSet):
-#     class  Meta:
-#         model = ['Product','Order']
-#         fields = '__all__'
+class OrderFilter(django_filters.FilterSet):
+    class  Meta:
+        model = Order
+        fields = ['product','product__category','staff','date',]
 

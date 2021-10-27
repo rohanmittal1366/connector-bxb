@@ -29,14 +29,14 @@
         </form>
       </div>
     </div>
-    <div class="col-md-8" style =" overflow-y:scroll;  width:300px; height:500px;">
+    <div class="col-md-8" >
       
      <form method="get">
           {{myFilter_product.form}}
           <button class="btn btn-primary pl-2" type=submit>Search </button>
       </form>
 
-      <table class="table bg-white "  style ="width:700px; height:50px; ">
+      <table class="table bg-white ">
         <thead class="bg-info ">
           <tr class="text-white ">
             <th scope="col">#</th>
@@ -46,7 +46,7 @@
             <th scope="col">Activity</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style="height: 80em; overflow: scroll;">
           {% for item in items %}
           <tr>
             <th scope="row">{{forloop.counter}}</th>

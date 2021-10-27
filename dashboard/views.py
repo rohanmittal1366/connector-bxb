@@ -6,7 +6,8 @@ from .models import Product, Order
 from .forms import ProductForm, OrderForm
 from django.contrib.auth.models import User # for give permision according to the user and admin
 from django.contrib import messages
-from .filters import StaffFilter, ProductFilter
+from .filters import StaffFilter, ProductFilter,OrderFilter
+from django.db.models import Max
 # Create your views here.
 
 @login_required(login_url='user-login')
@@ -126,11 +127,39 @@ def order(request):
     orders_count = orders.count()
     workers_count = User.objects.all().count()
     product_count = Product.objects.all().count()
+    myFilter_order = OrderFilter(request.GET, queryset = orders)
+    orders = myFilter_order.qs
+    myFilter_order = OrderFilter(request.GET, queryset = orders) 
+
+    # min1=0
+    # max1=0
+    # if 'min_order_quantity' in request.GET:
+    #     min1 = request.GET.get('min_order_quantity')
+    #     max1 = request.GET.get('max_order_quantity')
+    #     if min1 == '':
+    #         min1 = 0
+    #     if max1 == '':
+    #         max1= orders.aggregate(Max('order_quantity'))
+
+    # myFilter_range = Order.objects.filter(quantity__range=(min1,max1)) 
+
     context = {
         'orders': orders,
         'workers_count' : workers_count,
         'orders_count' : orders_count,
-        'product_count': product_count
+        'product_count': product_count,
+        'myFilter_order' : myFilter_order,
+        # 'myFilter_range': myFilter_range,
+
     }
     return render(request, "dashboard/order.html", context)
 
+
+#   if 'min_price' in request.GET:
+#         filter_price1 = request.GET.get('min_price')
+#         filter_price2 = request.GET.get('max_price')
+#         if filter_price1 =='':
+#             filter_price1=0
+#         if filter_price2=='':
+#             filter_price2=Add_prod.objects.all().aggregate(Max('price'))
+#         my_products = Add_prod.objects.filter(price__range=(filter_price1,filter_price2))
