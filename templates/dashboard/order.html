@@ -1,43 +1,47 @@
 {% extends 'assets/base.html' %} 
+{% load crispy_forms_tags %}
 {% block title %} Order Page {% endblock %} 
 {% block content %} {% include 'assets/topnav.html' %}
+
 
 <div class="container">
   <div class="row my-4">
     <div class="col-md-4"></div>
-    <div
-      class="col-md-8"
-      style="overflow-y: scroll; overflow: auto; width: 300px; height: 500px"
-    >
-      <form method="get">
-        {{myFilter_order.form}}
-        <input type="text" name="min_order_quantity" maxlength="4" size="3" />
-        to <input type="text" name="max_order_quantity" maxlength="4" size="3" />
-        <button class="btn btn-primary" type="submit">Search</button>
-      </form>
+    <div class="col-md-8">
 
-      <table class="table bg-white" style="width: 700px; height: 50px">
-        <thead class="bg-info">
-          <tr class="text-white">
-            <th scope="col">Product</th>
-            <th scope="col">Category</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Order by</th>
-            <th scope="col">Order on</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for order in orders %}
-          <tr>
-            <td>{{ order.product }}</td>
-            <td>{{ order.product.category }}</td>
-            <td>{{ order.order_quantity }}</td>
-            <td>{{ order.staff }}</td>
-            <td>{{ order.date }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+     <form method="get" style="display:flex;align-items:flex-end;">
+
+        {{myFilter_order.form | crispy}}
+        {% comment %} <input type="text" name="min_order_quantity" maxlength="4" size="3" />
+        to
+        <input type="text" name="max_order_quantity" maxlength="4" size="3" /> {% endcomment %}
+        <button class="btn btn-primary mb-3" type="submit">Search</button>
+      </form>
+      <br>
+      <div style="overflow: auto; height: 500px">
+        <table class="table bg-white">
+          <thead class="bg-info">
+            <tr class="text-white">
+              <th scope="col">Product</th>
+              <th scope="col">Category</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Order by</th>
+              <th scope="col">Order on</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>{{ order.product }}</td>
+              <td>{{ order.product.category }}</td>
+              <td>{{ order.order_quantity }}</td>
+              <td>{{ order.staff }}</td>
+              <td>{{ order.date }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

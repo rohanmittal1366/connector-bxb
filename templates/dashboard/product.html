@@ -7,14 +7,9 @@
 <div class="container">
   <div class="row my-4">
     <div class="col-md-4">
-    
-      {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </div>
-      {% endfor %}
-      {% endif %}
+      {% if messages %} {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %} {% endif %}
 
       <div class="border bg-white p-3">
         <h4>Add Products</h4>
@@ -29,39 +24,49 @@
         </form>
       </div>
     </div>
-    <div class="col-md-8" >
-      
-     <form method="get">
-          {{myFilter_product.form}}
-          <button class="btn btn-primary pl-2" type=submit>Search </button>
+    <div class="col-md-8">
+      <form method="get" style="display:flex;justify-content:space-around;align-items:center;">
+
+        {{myFilter_product.form | crispy}}
+        <button class="btn btn-primary btn-lg " type="submit">Search</button>
       </form>
+      <br>
+      <div style="overflow: auto; height: 500px">
+        <table class="table bg-white">
+          <thead class="bg-info">
+            <tr class="text-white">
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{item.name}}</td>
+              <td>{{item.category}}</td>
+              <td>{{item.quantity}}</td>
 
-      <table class="table bg-white ">
-        <thead class="bg-info ">
-          <tr class="text-white ">
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Category</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Activity</th>
-          </tr>
-        </thead>
-        <tbody style="height: 80em; overflow: scroll;">
-          {% for item in items %}
-          <tr>
-            <th scope="row">{{forloop.counter}}</th>
-            <td>{{item.name}}</td>
-            <td>{{item.category}}</td>
-            <td>{{item.quantity}}</td>
-
-            <td>
-              <a class="btn btn-info btn-sm" href="{% url 'dashboard-product-update'  item.id %}">Edit</a>
-              <a class="btn btn-danger btn-sm" href="{% url 'dashboard-product-delete'  item.id %}">Delete</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              <td>
+                <a
+                  class="btn btn-info btn-sm"
+                  href="{% url 'dashboard-product-update'  item.id %}"
+                  >Edit</a
+                >
+                <a
+                  class="btn btn-danger btn-sm"
+                  href="{% url 'dashboard-product-delete'  item.id %}"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

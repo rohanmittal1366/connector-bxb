@@ -1,43 +1,49 @@
 {% extends 'assets/base.html' %}
 {% block title %} Staff Page {% endblock  %}
-
+{% load crispy_forms_tags %}
 {% comment %} Table {% endcomment %}
 {% block content %}
- {% include 'assets/topnav.html' %}
-    <div class="container">
-        <div class="row my-4">
-            <div class="col-md-4"></div>
-            <div class="col-md-8" style =" overflow-y:scroll; width:300px; height:500px;">
-                
-                <form method="get">
-                    {{myFilter.form}}
-                    <button class="btn btn-primary " type=submit>Search </button>
-                </form>
-                
-                
-                <table class="table bg-white"  style ="width:700px; height:50px; ">
-                    <thead class="bg-info">
-                        <tr class="text-white">
-                            <th scope="col"></th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for worker in workers %}
-                        <tr>
-                            <th scope="row"><a class="btn btn-info btn-sm" href="{% url 'dashboard-staff-detail' worker.id %}">View</a></th>
-                            <td>{{ worker.username }}</td>
-                            <td>{{ worker.email }}</td>
-                            <td>{{ worker.profile.phone }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+{% include 'assets/topnav.html' %}
 
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+      <form method="get" style="display:flex;justify-content:space-around;align-items:center;">
+        {{myFilter.form | crispy}}
+        <button class="btn btn-primary btn-lg " type="submit">Search</button>
+      </form>
+      <br />
+      <div style="overflow: auto; height: 500px">
+        <table class="table bg-white" style="width: 700px; height: 50px">
+          <thead class="bg-info">
+            <tr class="text-white">
+              <th scope="col"></th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for worker in workers %}
+            <tr>
+              <th scope="row">
+                <a
+                  class="btn btn-info btn-sm"
+                  href="{% url 'dashboard-staff-detail' worker.id %}"
+                  >View</a
+                >
+              </th>
+              <td>{{ worker.username }}</td>
+              <td>{{ worker.email }}</td>
+              <td>{{ worker.profile.phone }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+</div>
 
-{% endblock  %}
+{% endblock %}
