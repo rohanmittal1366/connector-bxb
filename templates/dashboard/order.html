@@ -9,13 +9,13 @@
     <div class="col-md-4"></div>
     <div class="col-md-8">
 
-     <form method="get" style="display:flex;align-items:flex-end;">
-
+      <form method="get" style="display:flex;justify-content:space-around;align-items:center;">
+     
         {{myFilter_order.form | crispy}}
         {% comment %} <input type="text" name="min_order_quantity" maxlength="4" size="3" />
         to
         <input type="text" name="max_order_quantity" maxlength="4" size="3" /> {% endcomment %}
-        <button class="btn btn-primary mb-3" type="submit">Search</button>
+        <button class="btn btn-primary mt-2" type="submit">Search</button>
       </form>
       <br>
       <div style="overflow: auto; height: 500px">

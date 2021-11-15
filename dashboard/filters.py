@@ -18,5 +18,5 @@ class ProductFilter(django_filters.FilterSet):
 class OrderFilter(django_filters.FilterSet):
     class  Meta:
         model = Order
-        fields = ['product','product__category','staff','date',]
+        fields = ['product','product__category','staff']
 
