@@ -277,7 +277,3 @@ First user request to server for connector Bxb. View sees the user request, retr
 - After entering a new password, the success page is shown.
 
 ![](RackMultipart20211115-4-107dodn_html_72710df23aeeedad.png)
-
-## \*\*\*\*\*
-
-19 **|** Page
